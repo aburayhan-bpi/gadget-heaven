@@ -1,0 +1,202 @@
+[
+  {
+    "product_id": 1,
+    "product_title": "Dell XPS 13",
+    "product_image": "https://i.ibb.co/qgYVfLL/dell-xps-13.png",
+    "category": "Laptops",
+    "price": 999.99,
+    "description": "Compact laptop with an InfinityEdge display and powerful performance.",
+    "specification": [
+      "Processor: Intel Core i7-1165G7",
+      "RAM: 16GB",
+      "Storage: 512GB SSD",
+      "Display: 13.3-inch FHD",
+      "Battery life: Up to 12 hours"
+    ],
+    "availability": true,
+    "rating": 4.5
+  },
+  {
+    "product_id": 2,
+    "product_title": "MacBook Pro 14-inch",
+    "product_image": "https://i.ibb.co/85D4gyB/macbook-pro.png",
+    "category": "Laptops",
+    "price": 1999.99,
+    "description": "Powerful laptop with M1 Pro chip and a stunning Retina display.",
+    "specification": [
+      "Processor: Apple M1 Pro",
+      "RAM: 16GB",
+      "Storage: 512GB SSD",
+      "Display: 14-inch Retina",
+      "Battery life: Up to 17 hours"
+    ],
+    "availability": false,
+    "rating": 4.9
+  },
+  {
+    "product_id": 3,
+    "product_title": "HP Spectre x360",
+    "product_image": "https://i.ibb.co/T4Q4BGF/hp-spectre-x360.png",
+    "category": "Laptops",
+    "price": 1399.99,
+    "description": "2-in-1 laptop with a sleek design and high-performance features.",
+    "specification": [
+      "Processor: Intel Core i7-1165G7",
+      "RAM: 16GB",
+      "Storage: 1TB SSD",
+      "Display: 13.3-inch 4K OLED",
+      "Battery life: Up to 15 hours"
+    ],
+    "availability": true,
+    "rating": 4.6
+  },
+  {
+    "product_id": 4,
+    "product_title": "Lenovo ThinkPad X1 Carbon Gen 9",
+    "product_image": "https://i.ibb.co/dWrf2dR/lenovo-x1.png",
+    "category": "Laptops",
+    "price": 1649.99,
+    "description": "Business laptop with a premium build and robust performance.",
+    "specification": [
+      "Processor: Intel Core i7-1165G7",
+      "RAM: 16GB",
+      "Storage: 512GB SSD",
+      "Display: 14-inch FHD",
+      "Battery life: Up to 15 hours"
+    ],
+    "availability": false,
+    "rating": 4.7
+  },
+  {
+    "product_id": 5,
+    "product_title": "Asus ZenBook 14",
+    "product_image": "https://i.ibb.co/T4nQ9Pz/asus-zenbook-14.png",
+    "category": "Laptops",
+    "price": 899.99,
+    "description": "Sleek and lightweight laptop with powerful performance.",
+    "specification": [
+      "Processor: Intel Core i5-1135G7",
+      "RAM: 8GB",
+      "Storage: 256GB SSD",
+      "Display: 14-inch FHD",
+      "Battery life: Up to 16 hours"
+    ],
+    "availability": true,
+    "rating": 4.9
+  },
+  {
+    "product_id": 6,
+    "product_title": "Apple MacBook Air (M1)",
+    "product_image": "https://i.ibb.co/ZgShHzb/macbook-air-m1.png",
+    "category": "Laptops",
+    "price": 999.99,
+    "description": "Lightweight laptop with Apple's M1 chip for incredible performance.",
+    "specification": [
+      "Processor: Apple M1",
+      "RAM: 8GB",
+      "Storage: 256GB SSD",
+      "Display: 13.3-inch Retina",
+      "Battery life: Up to 18 hours"
+    ],
+    "availability": false,
+    "rating": 4.8
+  },
+  {
+    "product_id": 7,
+    "product_title": "Samsung Galaxy S21",
+    "product_image": "https://i.ibb.co/56DZJyZ/galaxy-s21.png",
+    "category": "Phones",
+    "price": 799.99,
+    "description": "Latest smartphone with a stunning display and advanced camera.",
+    "specification": [
+      "Processor: Exynos 2100",
+      "Display: 6.2-inch FHD+ AMOLED",
+      "Camera: Triple lens setup",
+      "Storage options: 128GB, 256GB",
+      "Battery: 4000mAh"
+    ],
+    "availability": true,
+    "rating": 4.3
+  },
+  {
+    "product_id": 8,
+    "product_title": "Google Pixel 6",
+    "product_image": "https://i.ibb.co/DCkfgBy/google-pixel-6.png",
+    "category": "Phones",
+    "price": 699.99,
+    "description": "Smartphone with Google Tensor chip and exceptional camera performance.",
+    "specification": [
+      "Processor: Google Tensor",
+      "Display: 6.4-inch FHD+ OLED",
+      "Camera: 50MP main, 12MP ultra-wide",
+      "Storage options: 128GB, 256GB",
+      "Battery: 4614mAh"
+    ],
+    "availability": true,
+    "rating": 4.6
+  },
+  {
+    "product_id": 9,
+    "product_title": "Apple AirPods Pro",
+    "product_image": "https://i.ibb.co/TrgWsTc/apple-airpods-pro.png",
+    "category": "Accessories",
+    "price": 249.99,
+    "description": "Premium wireless earbuds with noise cancellation.",
+    "specification": [
+      "Battery life: 4.5 hours (with ANC on)",
+      "Charging: Wireless and MagSafe compatible",
+      "Water resistance: IPX4",
+      "Bluetooth: Version 5.0"
+    ],
+    "availability": false,
+    "rating": 4.8
+  },
+  {
+    "product_id": 10,
+    "product_title": "Logitech MX Master 3 Mouse",
+    "product_image": "https://i.ibb.co/z4J8ZVL/logitech-mouse.png",
+    "category": "Accessories",
+    "price": 99.99,
+    "description": "Advanced wireless mouse with ergonomic design and customizable buttons.",
+    "specification": [
+      "Connection: Bluetooth and USB receiver",
+      "Battery life: Up to 70 days",
+      "Compatibility: Windows and macOS",
+      "Customizable buttons: Yes"
+    ],
+    "availability": true,
+    "rating": 4.7
+  },
+  {
+    "product_id": 11,
+    "product_title": "Fitbit Charge 5",
+    "product_image": "https://i.ibb.co/8YBKv3j/fitbit-charge-5.png",
+    "category": "Smart Watches",
+    "price": 179.99,
+    "description": "Health and fitness tracker with a bright display and built-in GPS.",
+    "specification": [
+      "Display: AMOLED",
+      "Battery life: Up to 7 days",
+      "Health monitoring: Heart rate, SpO2",
+      "Compatibility: Android and iOS"
+    ],
+    "availability": true,
+    "rating": 4.6
+  },
+  {
+    "product_id": 12,
+    "product_title": "Apple Watch Series 7",
+    "product_image": "https://i.ibb.co/jJGzGTX/apple-watch-series-7.png",
+    "category": "Smart Watches",
+    "price": 399.99,
+    "description": "Smartwatch with fitness tracking and heart rate monitoring.",
+    "specification": [
+      "Display: Retina, always-on",
+      "Battery life: 18 hours",
+      "Health monitoring: ECG, Blood Oxygen",
+      "Compatibility: iOS"
+    ],
+    "availability": true,
+    "rating": 4.9
+  }
+]
