@@ -1,51 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import ContextApi, {
-  AssetContext,
-  AuthContext,
-} from "../../Context/ContextApi";
-import Cart from "../Cart/Cart";
+import { AssetContext, AuthContext } from "../../Context/ContextApi";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const { cartData, wishData } = useContext(AssetContext);
   const { signOutUser, user } = useContext(AuthContext);
-  // console.log(wishData.length);
 
-  const links = (
-    <>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/statistics">Statistics</NavLink>
-      </li>
-      {user && (
-        <li>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-        </li>
-      )}
-      <li>
-        <NavLink to="/contact">Contact</NavLink>
-      </li>
-      {!user && (
-        <li>
-          <NavLink to="/register">Register</NavLink>
-        </li>
-      )}
-      {!user && (
-        <li>
-          <NavLink to="/login">Login</NavLink>
-        </li>
-      )}
-      {user && (
-        <li>
-          <NavLink to="/profile">Profile</NavLink>
-        </li>
-      )}
-    </>
-  );
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef();
 
   const handleSignOutUser = () => {
     if (user) {
@@ -56,54 +20,78 @@ const Navbar = () => {
     }
   };
 
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleOutsideClick = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const isAdmin = user?.email === "aburayhan.bpi@gmail.com"; // Replace with actual admin email/condition
+
+  const navbarBgClass =
+    pathname === "/admin-dashboard"
+      ? "bg-blue-500 text-white"
+      : pathname === "/"
+      ? "bg-transparent lg:text-white"
+      : "bg-transparent text-black";
+
+  const dropdownTextColor =
+    pathname === "/admin-dashboard" ? "text-black" : "text-gray-700";
+
   return (
-    <div
-      className={
-        pathname === "/"
-          ? `navbar md:px-20 bg-transparent py-4 rounded-xl lg:text-white`
-          : `navbar md:px-20 bg-transparent  py-4 rounded-xl text-black`
-      }
-    >
+    <div className={`navbar md:px-20 py-4 rounded-xl ${navbarBgClass}`}>
       <div className="navbar-start">
-        <div className="dropdown -ml-6 md:-ml-20 pl-2">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 "
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow flex gap-3"
-          >
-            {links}
-          </ul>
-        </div>
         <Link to="/">
           <button className="btn btn-ghost text-xl w-60 h-auto">
-            <img src="./assets/logo.png" alt="" />
+            <img src="./assets/logo.png" alt="Logo" />
           </button>
         </Link>
       </div>
+
+      {/* Hidden links in large devices */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 flex gap-3">{links}</ul>
+        <ul className="menu menu-horizontal px-1 flex gap-3">
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/statistics">Statistics</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+          {!user && (
+            <>
+              <li>
+                <NavLink to="/register">Register</NavLink>
+              </li>
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
+
       <div className="navbar-end gap-5">
         <Link to="/dashboard">
           <div className="relative btn rounded-full">
             {cartData.length !== 0 && (
               <div className="absolute text-xs -top-2 -right-4 bg-red-500 text-white badge">
-                {/* {cartData?.length} */}
                 {user ? cartData.length : 0}
               </div>
             )}
@@ -114,23 +102,116 @@ const Navbar = () => {
           <div className="relative btn rounded-full">
             {wishData.length !== 0 && (
               <div className="absolute text-xs -top-2 -right-4 bg-red-500 text-white badge">
-                {/* {wishData?.length} */}
                 {user ? wishData?.length : 0}
               </div>
             )}
             <i className="fa-regular fa-heart"></i>
           </div>
         </Link>
-        <div>
-          {user && (
+
+        {/* Dropdown */}
+        {user && (
+          <div className="relative" ref={dropdownRef}>
             <button
-              onClick={handleSignOutUser}
-              className="btn border-none text-white md:-mr-16  bg-green-400"
+              onClick={handleDropdownToggle}
+              className="btn btn-ghost p-0 rounded-full"
             >
-              Sign Out
+              <img
+                src={user.photoURL || "https://via.placeholder.com/40"}
+                alt="Profile"
+                className="w-10 h-10 rounded-full"
+              />
             </button>
-          )}
-        </div>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
+                <ul className="menu p-2">
+                  <li className={`lg:hidden ${dropdownTextColor}`}>
+                    <NavLink to="/" onClick={() => setDropdownOpen(false)}>
+                      Home
+                    </NavLink>
+                  </li>
+                  <li className={`lg:hidden ${dropdownTextColor}`}>
+                    <NavLink
+                      to="/statistics"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Statistics
+                    </NavLink>
+                  </li>
+                  <li className={`lg:hidden ${dropdownTextColor}`}>
+                    <NavLink
+                      to="/dashboard"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Dashboard
+                    </NavLink>
+                  </li>
+                  <li className={`lg:hidden ${dropdownTextColor}`}>
+                    <NavLink
+                      to="/contact"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Contact
+                    </NavLink>
+                  </li>
+                  {!user && (
+                    <>
+                      <li className={`lg:hidden ${dropdownTextColor}`}>
+                        <NavLink
+                          to="/register"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          Register
+                        </NavLink>
+                      </li>
+                      <li className={`lg:hidden ${dropdownTextColor}`}>
+                        <NavLink
+                          to="/login"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          Login
+                        </NavLink>
+                      </li>
+                    </>
+                  )}
+                  {isAdmin && (
+                    <li className={dropdownTextColor}>
+                      <NavLink
+                        to="/admin-dashboard"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        Admin Dashboard
+                      </NavLink>
+                    </li>
+                  )}
+                  <li>
+                    <NavLink
+                      to="/profile"
+                      onClick={() => {
+                        setDropdownOpen(false);
+                      }}
+                      className="block w-full px-4 py-2 text-black hover:bg-gray-200 rounded-lg"
+                    >
+                      Profile
+                    </NavLink>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => {
+                        handleSignOutUser();
+                        setDropdownOpen(false);
+                      }}
+                      className="block w-full px-4 py-2 text-red-500 hover:bg-gray-200 rounded-lg"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

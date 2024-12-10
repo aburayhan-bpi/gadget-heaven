@@ -27,6 +27,7 @@ import CombinedProvider from "./Context/ContextApi";
 import PrivateRegisterRoute from "./components/PrivateRoute/PrivateRegisterRoute";
 import Profile from "./components/Profile/Profile";
 import ForgotPass from "./components/ForgotPass/ForgotPass";
+import AdminDashboard from "./components/Admin-Dashboard/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
       {
         path: "/forgotpassword",
         element: <ForgotPass></ForgotPass>,
+      },
+      {
+        path: "/admin-dashboard",
+        element: <AdminDashboard></AdminDashboard>,
       },
     ],
   },

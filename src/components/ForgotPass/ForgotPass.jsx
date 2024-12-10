@@ -18,16 +18,16 @@ const ForgotPass = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isEmailValid) {
-      console.log("Password reset email sent to:", email);
       setErrorMessage(""); // Clear error message if valid
       passwordChange(email)
-        .then(() => {
-          Swal.fire({
-            title: "Success!",
-            text: `Reset email has been sent to ${email}!`,
-            icon: "success",
-            confirmButtonText: "Close",
-          });
+      .then(() => {
+        console.log("Password reset email sent to:", email);
+        Swal.fire({
+          title: "Success!",
+          text: `Reset email has been sent to ${email}!`,
+          icon: "success",
+          confirmButtonText: "Close",
+        });
           setEmail("");
         })
         .catch(() => setErrorMessage("Something went wrong!"));
