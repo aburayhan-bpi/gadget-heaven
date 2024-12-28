@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaTag,
   FaDollarSign,
@@ -7,6 +7,9 @@ import {
   FaStar,
   FaInfoCircle,
 } from "react-icons/fa";
+import { AuthContext } from "../../Context/ContextApi";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const categories = [
   { category: "Laptops" },
@@ -18,6 +21,7 @@ const categories = [
 ];
 
 const AddProduct = () => {
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     product_title: "",
     product_image: "",
@@ -27,10 +31,11 @@ const AddProduct = () => {
     specification: "",
     availability: false,
     rating: "",
+    userEmail: user?.email,
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, userEmail } = e.target;
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
@@ -40,7 +45,13 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Product Data:", formData);
-    alert("Product added successfully!");
+
+    // sent product data to db
+    axios.post("http://localhost:5000/api/v1/product", formData).then((res) => {
+      console.log(res.data);
+      setFormData("");
+      alert("Product added successfully to db!");
+    });
   };
 
   return (
@@ -189,6 +200,24 @@ const AddProduct = () => {
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
             required
+          />
+        </div>
+
+        {/* user email */}
+        <div>
+          <label className="font-medium text-gray-700 mb-1 block flex items-center gap-2">
+            {/* <FaTag className="text-gray-600" /> */}
+            User Email
+          </label>
+          <input
+            type="email"
+            name="userEmail"
+            // placeholder="Enter product title"
+            value={user?.email}
+            onChange={handleChange}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            // required
+            readOnly
           />
         </div>
 

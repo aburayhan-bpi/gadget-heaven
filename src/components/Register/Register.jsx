@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/ContextApi";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 const Register = () => {
   const [showPass, setShowPass] = useState(false);
@@ -20,7 +21,8 @@ const Register = () => {
     const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+    const newUser = { name, photo, email };
+    console.log(newUser);
     // Basic validation
     if (!name || !email || !password || !photo) {
       setError("All fields are required.");
@@ -46,6 +48,13 @@ const Register = () => {
           displayName: name,
           photoURL: photo,
         });
+
+        // send user data to db
+
+        axios.post("http://localhost:5000/api/v1/user", newUser).then((res) => {
+          toast.success("sent to db");
+        });
+
         signOutUser(); // Sign out after registration
         navigate("/login");
       })
@@ -60,6 +69,20 @@ const Register = () => {
         const user = result.user;
         console.log("Google user registered:", user);
         toast.success("Account created successfully with Google.");
+
+        const googleUser = {
+          name: user?.displayName,
+          photo: user?.photoURL,
+          email: user?.email,
+        };
+
+        // sent user data to db
+        axios
+          .post("http://localhost:5000/api/v1/user", googleUser)
+          .then((res) => {
+            toast.success("sent google user to db");
+          });
+
         navigate("/"); // Navigate to the desired page after registration
       })
       .catch((error) => {

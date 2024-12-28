@@ -28,6 +28,8 @@ import PrivateRegisterRoute from "./components/PrivateRoute/PrivateRegisterRoute
 import Profile from "./components/Profile/Profile";
 import ForgotPass from "./components/ForgotPass/ForgotPass";
 import AdminDashboard from "./components/Admin-Dashboard/AdminDashboard";
+import AddProduct from "./components/forms/AddProduct";
+import MyAddedProducts from "./components/Admin-Dashboard/MyAddedProducts";
 
 const router = createBrowserRouter([
   {
@@ -56,38 +58,38 @@ const router = createBrowserRouter([
                 index: true,
                 path: "/",
                 element: <AllProducts />,
-                loader: () => fetch("/productData.json"),
+                loader: () => fetch("http://localhost:5000/api/v1/allProducts"),
               },
 
               {
                 path: "laptops",
                 element: <Laptops></Laptops>,
-                loader: () => fetch("/productData.json"),
+                loader: () => fetch("http://localhost:5000/api/v1/allProducts"),
               },
               {
                 path: "phones",
                 element: <Phones></Phones>,
-                loader: () => fetch("/productData.json"),
+                loader: () => fetch("http://localhost:5000/api/v1/allProducts"),
               },
               {
                 path: "accessories",
                 element: <Accessories></Accessories>,
-                loader: () => fetch("/productData.json"),
+                loader: () => fetch("http://localhost:5000/api/v1/allProducts"),
               },
               {
                 path: "smart-watches",
                 element: <SmartWatches></SmartWatches>,
-                loader: () => fetch("/productData.json"),
+                loader: () => fetch("http://localhost:5000/api/v1/allProducts"),
               },
               {
                 path: "macbook",
                 element: <Macbook></Macbook>,
-                loader: () => fetch("/productData.json"),
+                loader: () => fetch("http://localhost:5000/api/v1/allProducts"),
               },
               {
                 path: "iphone",
                 element: <Iphones></Iphones>,
-                loader: () => fetch("/productData.json"),
+                loader: () => fetch("http://localhost:5000/api/v1/allProducts"),
               },
             ],
           },
@@ -145,6 +147,16 @@ const router = createBrowserRouter([
       {
         path: "/admin-dashboard",
         element: <AdminDashboard></AdminDashboard>,
+        children: [
+          {
+            path: "/admin-dashboard/add-products",
+            element: <AddProduct></AddProduct>,
+          },
+          {
+            path: "/admin-dashboard/added-products",
+            element: <MyAddedProducts></MyAddedProducts>,
+          },
+        ],
       },
     ],
   },
